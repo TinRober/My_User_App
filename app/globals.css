@@ -1,0 +1,66 @@
+/* globals.css */
+
+/* Reset básico */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+/* Tipografia padrão */
+body {
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 16px;
+  color: #000;
+  background-color: #fff; /* neutro, sem interferir nas cores das páginas */
+  line-height: 1.5;
+}
+
+/* Links básicos */
+a {
+  text-decoration: none;
+  color: inherit;
+}
+
+/* Imagens e elementos media */
+img, video {
+  max-width: 100%;
+  height: auto;
+  display: block;
+}
+
+/* Botões básicos */
+button {
+  font-family: inherit;
+  font-size: 1rem;
+  cursor: pointer;
+  border: none;
+  background: none;
+  padding: 0;
+}
+
+/* Inputs e textareas */
+input, textarea, select {
+  font-family: inherit;
+  font-size: 1rem;
+}
+
+/* Container geral */
+.container {
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 16px;
+}
+
+/* Flex helper */
+.flex-center {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+/* Utility para textos centralizados */
+.text-center {
+  text-align: center;
+}

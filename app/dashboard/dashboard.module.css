@@ -1,0 +1,51 @@
+.container {
+  max-width: 700px;
+  margin: 50px auto;
+  padding: 20px;
+  font-family: Arial, sans-serif;
+  text-align: center;
+}
+
+.title {
+  font-size: 28px;
+  margin-bottom: 20px;
+  color: #0b3d91;
+}
+
+.welcome {
+  font-size: 18px;
+  margin-bottom: 20px;
+}
+
+.userInfo {
+  text-align: left;
+  margin: 20px auto;
+  padding: 15px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  max-width: 400px;
+  background-color: #f9f9f9;
+}
+
+.userInfo p {
+  margin: 5px 0;
+}
+
+.loading {
+  margin-top: 20vh;
+  font-size: 18px;
+}
+
+.logout {
+  margin-top: 30px;
+  padding: 10px 20px;
+  background-color: #0b3d91;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.logout:hover {
+  background-color: #08275b;
+}
