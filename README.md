@@ -1,36 +1,82 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# My User App
 
-## Getting Started
+Aplicação web completa de **gerenciamento de usuários** desenvolvida com **Next.js**, **TypeScript** e **SQLite**, como parte de um desafio técnico Fullstack.
 
-First, run the development server:
+---
 
-```bash
+##  Funcionalidades Principais
+
+###  Cadastro Público de Usuário
+- Campos obrigatórios: **nome**, **e-mail**, **senha**  
+- Campos opcionais: **CEP**, **estado**, **cidade**
+- Integração automática com a **API ViaCEP** para preencher estado e cidade a partir do CEP.
+- Validação de senha (mínimo de 6 caracteres e critérios definidos no frontend).
+
+###  Login Público
+- Autenticação via **e-mail e senha**.
+- Redirecionamento automático para a área autenticada após login.
+
+###  Área do Usuário
+- Visualização de **mensagem de boas-vindas personalizada**.
+- Exibição dos **dados pessoais** do usuário autenticado.
+- O usuário **não pode visualizar nem editar** dados de outros usuários.
+
+###  Área do Administrador
+- Acesso restrito ao usuário com papel `admin`.
+- Funcionalidades:
+  - Listagem completa de usuários.
+  - Edição de nome de qualquer usuário.
+  - Exclusão de qualquer usuário.
+- Proteção de rota: apenas administradores podem acessar `/admin`.
+
+---
+
+##  Administrador Pré-Cadastrado
+
+Ao iniciar o projeto pela primeira vez, existe um **administrador padrão** configurado:
+
+| **Email** | `admin@example.com` |
+| **Senha** | `admin123!` |
+
+---
+
+##  Tecnologias Utilizadas
+
+- **Next.js 14 (App Router)**
+- **React**
+- **TypeScript**
+- **SQLite (via Prisma ou Database API interna)**
+- **Tailwind CSS / CSS Modules** (para estilização)
+- **API pública ViaCEP** (para integração de CEP)
+- **Validação de formulários no frontend**
+
+---
+
+##  Requisitos
+
+- Node.js 18+
+- npm ou yarn
+
+---
+
+##  Instalação e Execução
+
+1️⃣ Clonar o repositório
+https://github.com/TinRober/My-User-App.git
+cd my-user-app
+
+2️⃣ Instalar dependências
+npm install
+
+3️⃣ Criar o banco de dados (SQLite)
+
+Se estiver usando Prisma:
+
+npx prisma migrate dev --name init
+
+Se estiver usando conexão direta (sem Prisma), o banco será criado automaticamente na primeira execução.
+
+4️⃣ Rodar a aplicação
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
-
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
-
-## Learn More
-
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
