@@ -4,14 +4,26 @@
   align-items: center;
   justify-content: center;
   min-height: 100vh;
-  padding: 0 20px;
+  padding: 20px;
+  background-color: #0f172a; 
 }
 
+
 .title {
-  font-size: 2.5rem;
-  margin-bottom: 40px;
-  color: #0d3b66; /* azul escuro */
+  font-size: 3.5rem;
+  margin-bottom: 10px;
+  color: #c084fc; 
   text-align: center;
+  font-family: "Unbounded";
+  font-weight: bold;
+}
+
+.text {
+  font-size: 1.5rem;
+  margin-bottom: 30px;
+  color: #e2e8f0; 
+  text-align: center;
+  font-family: serif;
 }
 
 .boxContainer {
@@ -26,30 +38,30 @@
   padding: 15px 0;
   font-size: 1.2rem;
   text-align: center;
-  border-radius: 8px;
+  border-radius: 30px;
   font-weight: bold;
   cursor: pointer;
   transition: background-color 0.2s ease, transform 0.1s ease;
 }
 
-/* Login azul escuro */
 .box {
-  background-color: #0d3b66;
-  color: #fff;
+  background-color: #7d19ff; 
+  color: #ffffff;
 }
 
 .box:hover {
-  background-color: #084a8b;
+  background-color: #9b4dff; 
   transform: scale(1.02);
 }
 
-/* Criar conta verde */
 .boxCreate {
-  background-color: #007f5f;
-  color: #fff;
+  background-color: #1e293b; 
+  color: #c084fc; 
+  border: 1px solid #7d19ff;
 }
 
 .boxCreate:hover {
-  background-color: #005f44;
+  background-color: #312e81; 
   transform: scale(1.02);
 }
+

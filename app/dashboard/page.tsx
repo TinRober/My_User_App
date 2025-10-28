@@ -3,6 +3,7 @@
 import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import styles from "./dashboard.module.css";
+import PageTransition from "../components/PageTransition";
 
 type User = {
   id: number;
@@ -16,7 +17,6 @@ export default function DashboardPage() {
   const [user, setUser] = useState<User | null>(null);
   const [loading, setLoading] = useState(true);
 
-  // Inicializa usuário logado
   useEffect(() => {
     if (typeof window === "undefined") return;
 
@@ -40,6 +40,7 @@ export default function DashboardPage() {
   if (loading) return <p className={styles.loading}>Carregando...</p>;
 
   return (
+    <PageTransition>
     <div className={styles.container}>
       <h1 className={styles.title}>Dashboard</h1>
       <p className={styles.welcome}>Bem-vindo, {user?.name}!</p>
@@ -55,5 +56,6 @@ export default function DashboardPage() {
         Logout
       </button>
     </div>
+    </PageTransition>
   );
 }

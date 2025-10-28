@@ -113,21 +113,12 @@ export default function AdminPage() {
     }
   };
 
-  const handleLogout = () => {
-    localStorage.removeItem("user");
-    localStorage.removeItem("token");
-    router.push("/login");
-  };
-
   if (loading) return <p className={styles.loading}>Carregando...</p>;
 
   return (
     <div className={styles.container}>
       <div className={styles.header}>
         <h1 className={styles.title}>Área do Administrador</h1>
-        <button className={styles.logoutButton} onClick={handleLogout}>
-          Logout
-        </button>
       </div>
 
       <p className={styles.welcome}>Bem-vindo, {user?.name}</p>

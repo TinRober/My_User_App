@@ -3,6 +3,7 @@
 import { useState } from "react";
 import { useRouter } from "next/navigation";
 import styles from "./register.module.css";
+import PageTransition from "../components/PageTransition";
 
 export default function RegisterPage() {
   const router = useRouter();
@@ -50,6 +51,7 @@ export default function RegisterPage() {
   };
 
   return (
+    <PageTransition>
     <div className={styles.container}>
       <h1 className={styles.title}>Cadastro</h1>
       <form className={styles.form} onSubmit={handleRegister}>
@@ -114,5 +116,6 @@ export default function RegisterPage() {
         </span>
       </p>
     </div>
+    </PageTransition>
   );
 }

@@ -3,6 +3,7 @@
 import { useState } from "react";
 import { useRouter } from "next/navigation";
 import styles from "./login.module.css";
+import PageTransition from "../components/PageTransition";
 
 export default function LoginPage() {
   const router = useRouter();
@@ -39,6 +40,7 @@ export default function LoginPage() {
   };
 
   return (
+    <PageTransition>
     <div className={styles.container}>
       <h1 className={styles.title}>Login</h1>
       <form className={styles.form} onSubmit={handleLogin}>
@@ -72,6 +74,8 @@ export default function LoginPage() {
           Crie uma aqui
         </span>
       </p>
+       <div className="fade-bottom"></div>
     </div>
+    </PageTransition>
   );
 }

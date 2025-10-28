@@ -3,6 +3,7 @@ import { prisma } from "../../../../prisma";
 import bcrypt from "bcryptjs";
 import jwt from "jsonwebtoken";
 
+
 const JWT_SECRET = "supersecret123";
 
 export async function POST(req: NextRequest) {

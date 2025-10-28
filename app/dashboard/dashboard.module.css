@@ -1,51 +1,61 @@
 .container {
-  max-width: 700px;
-  margin: 50px auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
   padding: 20px;
-  font-family: Arial, sans-serif;
+  font-family: "Unbounded", sans-serif;
   text-align: center;
+  background-color: #0f172a;
 }
 
 .title {
-  font-size: 28px;
+  font-size: 2.5rem;
   margin-bottom: 20px;
-  color: #0b3d91;
+  color: #c084fc;
+  font-weight: bold;
+  font-family: serif
 }
 
 .welcome {
-  font-size: 18px;
-  margin-bottom: 20px;
+  font-size: 1.3rem;
+  margin-bottom: 25px;
+  color: #e2e8f0;
+  font-family: serif;
 }
 
 .userInfo {
   text-align: left;
-  margin: 20px auto;
-  padding: 15px;
-  border: 1px solid #ccc;
-  border-radius: 5px;
+  margin: 10px 0;
+  padding: 20px;
+  border: 1px solid #7d19ff;
+  border-radius: 12px;
   max-width: 400px;
-  background-color: #f9f9f9;
+  width: 100%;
+  background-color: #1e293b;
 }
 
 .userInfo p {
-  margin: 5px 0;
-}
-
-.loading {
-  margin-top: 20vh;
-  font-size: 18px;
+  margin: 8px 0;
+  color: #e2e8f0;
+  font-size: 1rem;
 }
 
 .logout {
   margin-top: 30px;
-  padding: 10px 20px;
-  background-color: #0b3d91;
-  color: white;
+  padding: 12px 25px;
+  background-color: #7d19ff;
+  color: #fff;
+  font-size: 1rem;
+  font-weight: bold;
   border: none;
-  border-radius: 5px;
+  border-radius: 8px;
   cursor: pointer;
+  transition: background-color 0.2s ease, transform 0.1s ease;
 }
 
 .logout:hover {
-  background-color: #08275b;
+  background-color: #9b4dff;
+  transform: scale(1.02);
 }
