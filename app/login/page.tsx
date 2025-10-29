@@ -23,7 +23,7 @@ export default function LoginPage() {
         container.classList.add(styles.shake);
         setTimeout(() => container.classList.remove(styles.shake), 300);
       }
-      setTimeout(() => setError(""), 4000);
+      setTimeout(() => setError(""), 3000);
       return;
     }
 
@@ -45,7 +45,7 @@ export default function LoginPage() {
           setTimeout(() => container.classList.remove(styles.shake), 300);
         }
 
-        setTimeout(() => setError(""), 4000);
+        setTimeout(() => setError(""), 3000);
         return;
       }
 
@@ -55,7 +55,7 @@ export default function LoginPage() {
 
       // Mensagem de sucesso
       setSuccess("Login efetuado com sucesso!");
-      setTimeout(() => setSuccess(""), 4000);
+      setTimeout(() => setSuccess(""), 3000);
 
       // Redireciona
       setTimeout(() => {
@@ -71,7 +71,7 @@ export default function LoginPage() {
         setTimeout(() => container.classList.remove(styles.shake), 300);
       }
 
-      setTimeout(() => setError(""), 4000);
+      setTimeout(() => setError(""), 3000);
     }
   };
 

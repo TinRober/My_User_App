@@ -15,7 +15,7 @@
   font-weight: bold;
   color: #c084fc;
   margin-top: 60px;
-  margin-bottom: 60px;
+  margin-bottom: 40px;
 }
 
 .title {
@@ -27,7 +27,7 @@
 
 .welcome {
   font-size: 1.3rem;
-  margin-bottom: 5px;
+  margin-bottom: 20px;
   color: #e2e8f0;
   font-family: serif;
 }
@@ -46,7 +46,7 @@
   border-radius: 12px;
   padding: 20px;
   width: 300px;
-  min-height: 180px;
+  min-height: 220px; /* aumenta a altura para uniformizar */
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -63,16 +63,23 @@
 .card h3 {
   color: #c084fc;
   margin: 0;
-  margin-bottom: 10px;
+  margin-bottom: 15px;
   text-align: center;
   width: 100%;
+  font-size: 1.2rem;
 }
 
-.card p {
+.card p,
+.card ul {
   color: #e2e8f0;
   margin: 4px 0;
   font-size: 0.95rem;
   text-align: center;
+}
+
+.card ul {
+  padding-left: 0;
+  list-style: none;
 }
 
 .logout {
@@ -99,3 +106,18 @@
   font-size: 1.2rem;
   color: #c084fc;
 }
+
+/* Responsividade para telas pequenas */
+@media (max-width: 1000px) {
+  .cardsContainer {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .card {
+    width: 80%;
+  }
+}
+
+
+

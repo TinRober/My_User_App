@@ -1,6 +1,3 @@
-// This is your Prisma schema file,
-// learn more about it in the docs: https://pris.ly/d/prisma-schema
-
 datasource db {
   provider = "sqlite"
   url      = "file:./dev.db"
@@ -11,12 +8,22 @@ generator client {
 }
 
 model User {
-  id       Int    @id @default(autoincrement())
-  name     String
-  email    String @unique
-  password String
-  cep      String?
-  state    String?
-  city     String?
-  role     String @default("user")
+  id           Int            @id @default(autoincrement())
+  name         String
+  email        String         @unique
+  password     String
+  cep          String?
+  state        String?
+  city         String?
+  role         String         @default("user")
+  loginHistory LoginHistory[] // relação 1:N
+}
+
+model LoginHistory {
+  id        Int      @id @default(autoincrement())
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  userId    Int
+  timestamp DateTime @default(now())
+  ip        String?
+  userAgent String?
 }

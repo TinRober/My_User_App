@@ -13,23 +13,56 @@ type User = {
   role: string;
 };
 
+type LoginHistory = {
+  id: number;
+  timestamp: string;
+  ip: string | null;
+  userAgent: string | null;
+};
+
 export default function DashboardPage() {
   const router = useRouter();
   const [user, setUser] = useState<User | null>(null);
   const [loading, setLoading] = useState(true);
+  const [history, setHistory] = useState<LoginHistory[]>([]);
 
   useEffect(() => {
     if (typeof window === "undefined") return;
 
     const storedUser = localStorage.getItem("user");
-    if (!storedUser) {
+    const token = localStorage.getItem("token");
+
+    if (!storedUser || !token) {
       router.push("/login");
       return;
     }
 
     const parsedUser: User = JSON.parse(storedUser);
     setUser(parsedUser);
-    setLoading(false);
+
+    const fetchHistory = async () => {
+      try {
+        const res = await fetch("/api/login-history", {
+          headers: {
+            "Authorization": `Bearer ${token}`,
+          },
+        });
+
+        if (!res.ok) {
+          throw new Error("Erro ao buscar histórico");
+        }
+
+        const data = await res.json();
+        setHistory(data);
+      } catch (err) {
+        console.error("Falha ao buscar histórico:", err);
+        setHistory([]);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchHistory();
   }, [router]);
 
   const handleLogout = () => {
@@ -43,10 +76,10 @@ export default function DashboardPage() {
   return (
     <PageTransition>
       <div className={styles.container}>
-
         <h1 className={styles.appTitle}>My User App</h1>
         <h2 className={styles.title}>Dashboard</h2>
         <p className={styles.welcome}>Bem-vindo, {user?.name}!</p>
+
         <div className={styles.cardsContainer}>
           <div className={styles.card}>
             <UserIcon size={40} color="#c084fc" />
@@ -60,12 +93,25 @@ export default function DashboardPage() {
           <div className={styles.card}>
             <ClockIcon size={40} color="#c084fc" />
             <h3>Últimos Acessos</h3>
-            <p>Acesso 1: 29/10/2025 10:00</p>
-            <p>Acesso 2: 28/10/2025 14:30</p>
-            <p>Acesso 3: 27/10/2025 09:45</p>
+            {history.length === 0 ? (
+              <p>Nenhum acesso registrado.</p>
+            ) : (
+              <ul className={styles.historyList}>
+                {history.slice(0, 5).map((h) => (
+                  <li key={h.id}>
+                    {new Date(h.timestamp).toLocaleString()}
+                  </li>
+                ))}
+              </ul>
+            )}
           </div>
 
-          <div className={styles.card} onClick={() => router.push("/settings")}>
+
+          <div
+            className={styles.card}
+            onClick={() => router.push("/settings")}
+            style={{ cursor: "pointer" }}
+          >
             <SettingsIcon size={40} color="#c084fc" />
             <h3>Configurações</h3>
             <p>Altere suas preferências, senha ou informações da conta</p>
