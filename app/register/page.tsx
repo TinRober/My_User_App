@@ -5,6 +5,7 @@ import { useRouter } from "next/navigation";
 import styles from "./register.module.css";
 import PageTransition from "../components/PageTransition";
 
+// Página de registro
 export default function RegisterPage() {
   const router = useRouter();
   const [name, setName] = useState("");
@@ -17,18 +18,20 @@ export default function RegisterPage() {
   const [messageType, setMessageType] = useState<"error" | "success" | "">("");
   const [shake, setShake] = useState(false);
 
+  // Validação de senha
   const isPasswordValid = (password: string) => {
   // Mínimo 8 caracteres, pelo menos 1 maiúscula, 1 número e 1 símbolo (!@#$%^&*()-_=+)
     const regex = /^(?=.*[A-Z])(?=.*\d)(?=.*[!@#$%^&*()\-_=+{};:,<.>]).{8,}$/;
     return regex.test(password);
 };
 
-
+  // Validação de email
   const isEmailValid = (email: string) => {
     const regex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     return regex.test(email);
   };
-
+  
+  // Gatilho de erro
   const triggerError = (msg: string) => {
     setMessageType("error");
     setMessage(msg);
@@ -37,6 +40,7 @@ export default function RegisterPage() {
     setTimeout(() => setMessage(""), 4000);
   };
 
+  // Manipula o registro
   const handleRegister = async (e: React.FormEvent) => {
     e.preventDefault();
     setMessage("");
@@ -50,6 +54,7 @@ export default function RegisterPage() {
     if (!name.trim()) errors.push("nome");
     if (cep && !/^\d{8}$/.test(cep)) errors.push("cep");
 
+    // Tratamento de erros
     if (errors.length > 1) {
       triggerError("Preencha corretamente todos os campos obrigatórios");
       return;
@@ -72,6 +77,7 @@ export default function RegisterPage() {
       }
     }
 
+    // Chama API de registro
     try {
       const res = await fetch("/api/auth/register", {
         method: "POST",
@@ -96,6 +102,7 @@ export default function RegisterPage() {
     }
   };
 
+  // Busca endereço pelo CEP
   const handleCepBlur = async () => {
     if (!cep) return;
     try {
@@ -113,6 +120,7 @@ export default function RegisterPage() {
     }
   };
 
+  // Renderização
   return (
     <PageTransition>
       <div className={`${styles.container} ${shake ? styles.shake : ""}`}>

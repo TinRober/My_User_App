@@ -4,9 +4,11 @@ import { useRouter } from "next/navigation";
 import styles from "./Home.module.css";
 import PageTransition from "./components/PageTransition";
 
+// Página inicial
 export default function HomePage() {
   const router = useRouter();
 
+  // Renderização
   return (
     <PageTransition>
       <div className={styles.container}>

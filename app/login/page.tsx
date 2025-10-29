@@ -5,6 +5,7 @@ import { useRouter } from "next/navigation";
 import styles from "./login.module.css";
 import PageTransition from "../components/PageTransition";
 
+// Página de login
 export default function LoginPage() {
   const router = useRouter();
   const [email, setEmail] = useState("");
@@ -12,6 +13,7 @@ export default function LoginPage() {
   const [error, setError] = useState("");
   const [success, setSuccess] = useState("");
 
+  // Manipula o login
   const handleLogin = async (e: React.FormEvent) => {
     e.preventDefault();
 
@@ -27,6 +29,7 @@ export default function LoginPage() {
       return;
     }
 
+    // Chama API de login
     try {
       const res = await fetch("/api/auth/login", {
         method: "POST",
@@ -36,6 +39,7 @@ export default function LoginPage() {
 
       const data = await res.json();
 
+      // Trata erros
       if (!res.ok) {
         setError(data.error || "Usuário ou senha incorretos");
 
@@ -75,6 +79,7 @@ export default function LoginPage() {
     }
   };
 
+  // Renderização
   return (
     <PageTransition>
       <div className={styles.container}>

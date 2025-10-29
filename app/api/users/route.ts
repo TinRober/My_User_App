@@ -1,6 +1,7 @@
 import { NextResponse } from "next/server";
 import { prisma } from "../../../prisma";
 
+// GET → listar todos os usuários
 export async function GET() {
   try {
     const users = await prisma.user.findMany({

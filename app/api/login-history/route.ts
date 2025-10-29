@@ -29,7 +29,7 @@ export async function GET(req: NextRequest) {
     const history = await prisma.loginHistory.findMany({
       where: { userId },
       orderBy: { timestamp: "desc" },
-      take: 5, // pega os últimos 5 acessos
+      take: 5, 
       select: {
         id: true,
         timestamp: true,

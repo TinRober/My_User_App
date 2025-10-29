@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from "next/server";
 import { prisma } from "../../../../../prisma";
 
+// GET → obter histórico de logins de um usuário específico
 export async function GET(req: NextRequest, { params }: { params: { id: string } }) {
   try {
     const userId = Number(params.id);

@@ -4,6 +4,7 @@ import bcrypt from "bcryptjs";
 
 export const runtime = "nodejs";
 
+// Rota de registro
 export async function POST(req: NextRequest) {
   try {
     const data = await req.json();

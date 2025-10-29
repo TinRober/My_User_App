@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import styles from "./admin.module.css";
 
+// Tipo para usuário
 type User = {
   id: number;
   name: string;
@@ -11,6 +12,7 @@ type User = {
   role: string;
 };
 
+// Página do admin
 export default function AdminPage() {
   const router = useRouter();
 
@@ -19,7 +21,8 @@ export default function AdminPage() {
   const [loading, setLoading] = useState(true);
   const [message, setMessage] = useState("");
   const [messageType, setMessageType] = useState<"success" | "error">("success");
-
+  
+  // Verifica autenticação e busca usuários
   useEffect(() => {
     const fetchUsers = async () => {
       const storedUser = localStorage.getItem("user");
@@ -70,7 +73,8 @@ export default function AdminPage() {
 
     fetchUsers();
   }, [router]);
-
+  
+  // Edita usuário
   const handleEditUser = async (id: number) => {
     const newName = prompt("Digite o novo nome do usuário:");
     if (!newName) return;
@@ -100,6 +104,7 @@ export default function AdminPage() {
     }
   };
 
+  // Deleta usuário
   const handleDeleteUser = async (id: number) => {
     if (!confirm("Tem certeza que deseja deletar este usuário?")) return;
 
@@ -126,7 +131,8 @@ export default function AdminPage() {
       setMessage("Erro ao conectar com o servidor");
     }
   };
-
+  
+  // Renderização
   if (loading) return <p className={styles.loading}>Carregando...</p>;
 
   return (

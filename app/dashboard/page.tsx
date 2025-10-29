@@ -6,6 +6,7 @@ import styles from "./dashboard.module.css";
 import PageTransition from "../components/PageTransition";
 import { UserIcon, ClockIcon, SettingsIcon } from "lucide-react";
 
+// Tipo para usuário
 type User = {
   id: number;
   name: string;
@@ -13,6 +14,7 @@ type User = {
   role: string;
 };
 
+// Tipo para histórico de login
 type LoginHistory = {
   id: number;
   timestamp: string;
@@ -20,12 +22,14 @@ type LoginHistory = {
   userAgent: string | null;
 };
 
+// Página do dashboard
 export default function DashboardPage() {
   const router = useRouter();
   const [user, setUser] = useState<User | null>(null);
   const [loading, setLoading] = useState(true);
   const [history, setHistory] = useState<LoginHistory[]>([]);
-
+  
+  // Verifica autenticação e busca histórico de login
   useEffect(() => {
     if (typeof window === "undefined") return;
 
@@ -36,7 +40,8 @@ export default function DashboardPage() {
       router.push("/login");
       return;
     }
-
+    
+    // Carrega dados do usuário
     const parsedUser: User = JSON.parse(storedUser);
     setUser(parsedUser);
 
@@ -65,6 +70,7 @@ export default function DashboardPage() {
     fetchHistory();
   }, [router]);
 
+  // Logout
   const handleLogout = () => {
     localStorage.removeItem("user");
     localStorage.removeItem("token");
@@ -73,6 +79,7 @@ export default function DashboardPage() {
 
   if (loading) return <p className={styles.loading}>Carregando...</p>;
 
+  // Renderização
   return (
     <PageTransition>
       <div className={styles.container}>

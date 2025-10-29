@@ -6,6 +6,7 @@ import jwt from "jsonwebtoken";
 
 const JWT_SECRET = "supersecret123";
 
+// Rota de login
 export async function POST(req: NextRequest) {
   try {
     const { email, password } = await req.json();
