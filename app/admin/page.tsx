@@ -20,62 +20,66 @@ export default function AdminPage() {
   const [message, setMessage] = useState("");
   const [messageType, setMessageType] = useState<"success" | "error">("success");
 
-  // Inicializa o usuário logado e protege a rota
   useEffect(() => {
-    if (typeof window === "undefined") return;
+    const fetchUsers = async () => {
+      const storedUser = localStorage.getItem("user");
+      const token = localStorage.getItem("token");
 
-    const storedUser = localStorage.getItem("user");
-    const token = localStorage.getItem("token");
+      if (!storedUser || !token) {
+        setMessageType("error");
+        setMessage("Acesso negado! Token não fornecido.");
+        setLoading(false);
+        setTimeout(() => router.push("/login"), 4000);
+        return;
+      }
 
-    if (!storedUser || !token) {
-      router.push("/login");
-      return;
-    }
+      const parsedUser: User = JSON.parse(storedUser);
 
-    const parsedUser: User = JSON.parse(storedUser);
+      if (parsedUser.role !== "admin") {
+        setMessageType("error");
+        setMessage("Acesso negado! Você precisa ser um administrador para acessar esta página.");
+        setLoading(false);
+        setTimeout(() => router.push("/dashboard"), 4000);
+        return;
+      }
 
-    // Checagem de papel
-    if (parsedUser.role !== "admin") {
-      setMessageType("error");
-      setMessage("Acesso negado! Você precisa ser um administrador para acessar esta página.");
-      setTimeout(() => {
-        router.push("/dashboard"); 
-      }, 4000);
-      setLoading(false);
-      return;
-    }
+      setUser(parsedUser);
 
-    setUser(parsedUser);
-    setLoading(false);
+      try {
+        const res = await fetch("/api/admin/users", {
+          headers: { Authorization: `Bearer ${token}` },
+        });
+
+        if (!res.ok) {
+          const data = await res.json();
+          setMessageType("error");
+          setMessage(data.error || "Acesso negado!");
+          setLoading(false);
+          return;
+        }
+
+        const data: User[] = await res.json();
+        setUsers(data);
+      } catch {
+        setMessageType("error");
+        setMessage("Erro ao conectar com o servidor");
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchUsers();
   }, [router]);
-
-  // Busca usuários sempre que o usuário admin estiver carregado
-  useEffect(() => {
-    if (user) fetchUsers();
-  }, [user]);
-
-  const fetchUsers = async () => {
-    try {
-      const res = await fetch("/api/admin/users");
-      if (!res.ok) throw new Error("Erro ao carregar lista de usuários");
-
-      const data: User[] = await res.json();
-      setUsers(data);
-    } catch (err) {
-      console.error("Erro no fetchUsers:", err);
-      setMessage("Erro ao carregar lista de usuários");
-      setMessageType("error");
-    }
-  };
 
   const handleEditUser = async (id: number) => {
     const newName = prompt("Digite o novo nome do usuário:");
     if (!newName) return;
 
     try {
+      const token = localStorage.getItem("token");
       const res = await fetch(`/api/admin/users`, {
         method: "PATCH",
-        headers: { "Content-Type": "application/json" },
+        headers: { "Content-Type": "application/json", Authorization: `Bearer ${token}` },
         body: JSON.stringify({ id, name: newName }),
       });
 
@@ -88,7 +92,8 @@ export default function AdminPage() {
 
       setMessageType("success");
       setMessage("Usuário atualizado com sucesso!");
-      fetchUsers();
+      const updatedUsers = await res.json();
+      setUsers((prev) => prev.map((u) => (u.id === updatedUsers.id ? updatedUsers : u)));
     } catch {
       setMessageType("error");
       setMessage("Erro ao conectar com o servidor");
@@ -99,9 +104,10 @@ export default function AdminPage() {
     if (!confirm("Tem certeza que deseja deletar este usuário?")) return;
 
     try {
+      const token = localStorage.getItem("token");
       const res = await fetch(`/api/admin/users`, {
         method: "DELETE",
-        headers: { "Content-Type": "application/json" },
+        headers: { "Content-Type": "application/json", Authorization: `Bearer ${token}` },
         body: JSON.stringify({ id }),
       });
 
@@ -114,7 +120,7 @@ export default function AdminPage() {
 
       setMessageType("success");
       setMessage("Usuário deletado com sucesso!");
-      fetchUsers();
+      setUsers((prev) => prev.filter((u) => u.id !== id));
     } catch {
       setMessageType("error");
       setMessage("Erro ao conectar com o servidor");
@@ -125,59 +131,42 @@ export default function AdminPage() {
 
   return (
     <div className={styles.container}>
-      <div className={styles.header}>
-        <h1 className={styles.title}>Área do Administrador</h1>
-      </div>
+      <h1 className={styles.title}>Área do Administrador</h1>
 
       {message && (
-        <div
-          className={
-            messageType === "success"
-              ? styles.success
-              : styles.error
-          }
-        >
+        <div className={messageType === "success" ? styles.success : styles.error}>
           {message}
         </div>
       )}
 
-      {user?.role === "admin" && (
-        <>
-
-          <table className={styles.table}>
-            <thead>
-              <tr>
-                <th>ID</th>
-                <th>Nome</th>
-                <th>Email</th>
-                <th>Ações</th>
+      {user?.role === "admin" && users.length > 0 && (
+        <table className={styles.table}>
+          <thead>
+            <tr>
+              <th>ID</th>
+              <th>Nome</th>
+              <th>Email</th>
+              <th>Ações</th>
+            </tr>
+          </thead>
+          <tbody>
+            {users.map((u) => (
+              <tr key={u.id}>
+                <td>{u.id}</td>
+                <td>{u.name}</td>
+                <td>{u.email}</td>
+                <td>
+                  <button className={styles.editButton} onClick={() => handleEditUser(u.id)}>
+                    Editar
+                  </button>
+                  <button className={styles.deleteButton} onClick={() => handleDeleteUser(u.id)}>
+                    Deletar
+                  </button>
+                </td>
               </tr>
-            </thead>
-            <tbody>
-              {users.map((u) => (
-                <tr key={u.id}>
-                  <td>{u.id}</td>
-                  <td>{u.name}</td>
-                  <td>{u.email}</td>
-                  <td>
-                    <button
-                      className={styles.editButton}
-                      onClick={() => handleEditUser(u.id)}
-                    >
-                      Editar
-                    </button>
-                    <button
-                      className={styles.deleteButton}
-                      onClick={() => handleDeleteUser(u.id)}
-                    >
-                      Deletar
-                    </button>
-                  </td>
-                </tr>
-              ))}
-            </tbody>
-          </table>
-        </>
+            ))}
+          </tbody>
+        </table>
       )}
     </div>
   );
