@@ -18,7 +18,7 @@ export async function POST(req: NextRequest) {
     if (!email || !password) {
       console.log("Email ou senha não fornecidos");
       return NextResponse.json(
-        { error: "Email e senha são obrigatórios." },
+        { error: "Email e senha são obrigatórios" },
         { status: 400 }
       );
     }
@@ -28,7 +28,7 @@ export async function POST(req: NextRequest) {
 
     if (!user) {
       return NextResponse.json(
-        { error: "Usuário não encontrado." },
+        { error: "Usuário não encontrado" },
         { status: 404 }
       );
     }
@@ -37,7 +37,7 @@ export async function POST(req: NextRequest) {
     console.log("Senha bate:", passwordMatch);
 
     if (!passwordMatch) {
-      return NextResponse.json({ error: "Senha incorreta." }, { status: 400 });
+      return NextResponse.json({ error: "Senha incorreta" }, { status: 400 });
     }
 
     const token = jwt.sign(
@@ -51,7 +51,7 @@ export async function POST(req: NextRequest) {
   } catch (error) {
     console.error("Erro no login:", error);
     return NextResponse.json(
-      { error: "Erro ao realizar login." },
+      { error: "Erro ao realizar login" },
       { status: 500 }
     );
   }

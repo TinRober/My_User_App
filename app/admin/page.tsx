@@ -155,7 +155,7 @@ export default function AdminPage() {
                 <td>{u.id}</td>
                 <td>{u.name}</td>
                 <td>{u.email}</td>
-                <td>
+                <td className={styles.actions}>
                   <button className={styles.editButton} onClick={() => handleEditUser(u.id)}>
                     Editar
                   </button>
