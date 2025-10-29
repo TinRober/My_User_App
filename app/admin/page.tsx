@@ -36,8 +36,12 @@ export default function AdminPage() {
 
     // Checagem de papel
     if (parsedUser.role !== "admin") {
-      alert("Você não tem permissão para acessar esta página.");
-      router.push("/dashboard");
+      setMessageType("error");
+      setMessage("🚫 Acesso negado! Você precisa ser um administrador para acessar esta página.");
+      setTimeout(() => {
+        router.push("/dashboard"); // redireciona após 3 segundos
+      }, 3000);
+      setLoading(false);
       return;
     }
 
@@ -52,7 +56,7 @@ export default function AdminPage() {
 
   const fetchUsers = async () => {
     try {
-      const res = await fetch("/api/users");
+      const res = await fetch("/api/admin/users");
       if (!res.ok) throw new Error("Erro ao carregar lista de usuários");
 
       const data: User[] = await res.json();
@@ -69,16 +73,16 @@ export default function AdminPage() {
     if (!newName) return;
 
     try {
-      const res = await fetch(`/api/users/${id}`, {
-        method: "PUT",
+      const res = await fetch(`/api/admin/users`, {
+        method: "PATCH",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ name: newName }),
+        body: JSON.stringify({ id, name: newName }),
       });
 
       if (!res.ok) {
         const data = await res.json();
         setMessageType("error");
-        setMessage(data.message || "Erro ao editar usuário");
+        setMessage(data.error || "Erro ao editar usuário");
         return;
       }
 
@@ -95,12 +99,16 @@ export default function AdminPage() {
     if (!confirm("Tem certeza que deseja deletar este usuário?")) return;
 
     try {
-      const res = await fetch(`/api/users/${id}`, { method: "DELETE" });
+      const res = await fetch(`/api/admin/users`, {
+        method: "DELETE",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ id }),
+      });
 
       if (!res.ok) {
         const data = await res.json();
         setMessageType("error");
-        setMessage(data.message || "Erro ao deletar usuário");
+        setMessage(data.error || "Erro ao deletar usuário");
         return;
       }
 
@@ -121,53 +129,56 @@ export default function AdminPage() {
         <h1 className={styles.title}>Área do Administrador</h1>
       </div>
 
-      <p className={styles.welcome}>Bem-vindo, {user?.name}</p>
-
       {message && (
         <div
           className={
             messageType === "success"
-              ? styles.messageSuccess
-              : styles.messageError
+              ? styles.success
+              : styles.error
           }
         >
           {message}
         </div>
       )}
 
-      <table className={styles.table}>
-        <thead>
-          <tr>
-            <th>ID</th>
-            <th>Nome</th>
-            <th>Email</th>
-            <th>Ações</th>
-          </tr>
-        </thead>
-        <tbody>
-          {users.map((u) => (
-            <tr key={u.id}>
-              <td>{u.id}</td>
-              <td>{u.name}</td>
-              <td>{u.email}</td>
-              <td>
-                <button
-                  className={styles.editButton}
-                  onClick={() => handleEditUser(u.id)}
-                >
-                  Editar
-                </button>
-                <button
-                  className={styles.deleteButton}
-                  onClick={() => handleDeleteUser(u.id)}
-                >
-                  Deletar
-                </button>
-              </td>
-            </tr>
-          ))}
-        </tbody>
-      </table>
+      {user?.role === "admin" && (
+        <>
+
+          <table className={styles.table}>
+            <thead>
+              <tr>
+                <th>ID</th>
+                <th>Nome</th>
+                <th>Email</th>
+                <th>Ações</th>
+              </tr>
+            </thead>
+            <tbody>
+              {users.map((u) => (
+                <tr key={u.id}>
+                  <td>{u.id}</td>
+                  <td>{u.name}</td>
+                  <td>{u.email}</td>
+                  <td>
+                    <button
+                      className={styles.editButton}
+                      onClick={() => handleEditUser(u.id)}
+                    >
+                      Editar
+                    </button>
+                    <button
+                      className={styles.deleteButton}
+                      onClick={() => handleDeleteUser(u.id)}
+                    >
+                      Deletar
+                    </button>
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </>
+      )}
     </div>
   );
 }

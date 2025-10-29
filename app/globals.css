@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css2?family=Unbounded:wght@400;600;700&display=swap');
+
 * {
   margin: 0;
   padding: 0;
@@ -6,7 +8,7 @@
 
 
 html, body, #__next {
-  font-family: "unbounded", sans-serif;
+  font-family: "Unbounded", sans-serif;
   font-size: 16px;
   color: #000000; 
   background-color: #0f172a; 
@@ -60,6 +62,58 @@ input, textarea, select {
 .text-center {
   text-align: center;
 }
+
+.notification {
+  padding: 14px 22px;
+  border-radius: 10px;
+  margin: 20px auto;
+  width: fit-content;
+  font-family: "Unbounded", sans-serif;
+  font-size: 1rem;
+  font-weight: 500;
+  text-align: center;
+  animation: fadeIn 0.4s ease-in-out;
+  box-shadow: 0 0 12px rgba(125, 25, 255, 0.3);
+  color: #e2e8f0;
+  background-color: #1e293b;
+  border: 1px solid transparent;
+}
+
+.notification.success {
+  border-color: #7d19ff;
+  background: linear-gradient(90deg, #7d19ff, #9b4dff);
+  color: #fff;
+}
+
+.notification.error {
+  border-color: #ff3d71;
+  background: linear-gradient(90deg, #ff4b5c, #c53030);
+  color: #fff;
+}
+
+.notification.warning {
+  border-color: #facc15;
+  background: linear-gradient(90deg, #facc15, #eab308);
+  color: #1e293b;
+}
+
+.notification.info {
+  border-color: #7d19ff;
+  background: linear-gradient(90deg, #6d28d9, #7c3aed);
+  color: #fff;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
 
 
 

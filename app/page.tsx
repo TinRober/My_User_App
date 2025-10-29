@@ -1,8 +1,8 @@
 "use client";
 
 import { useRouter } from "next/navigation";
-import styles from "./home.module.css";
-import PageTransition from "./components/PageTransition"; 
+import styles from "./Home.module.css";
+import PageTransition from "./components/PageTransition";
 
 export default function HomePage() {
   const router = useRouter();

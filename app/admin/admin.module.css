@@ -1,12 +1,11 @@
 .container {
-  max-width: 700px;
-  margin: 50px auto;
-  padding: 20px;
-  font-family: "Unbounded", sans-serif;
-  background-color: #1e1b2f;
-  border-radius: 12px;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
-}
+  max-width: 700px; 
+  margin: 40px auto; 
+  padding: 20px; 
+  font-family: "Unbounded", sans-serif; 
+  background-color: #1e1b2f; 
+  border-radius: 12px; 
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2); }
 
 .title {
   font-size: 2.5rem;
@@ -37,15 +36,26 @@
   padding: 10px;
   border-radius: 8px;
   margin-top: 10px;
+  text-align: center;
+  font-weight: bold;
 }
 
 .error {
-  color: #fca5a5;
-  background-color: #7f1d1d;
-  border: 1px solid #b91c1c;
-  padding: 10px;
-  border-radius: 8px;
-  margin-top: 10px;
+  color: #fef2f2;
+  background-color: #b91c1c;
+  border: 1px solid #7f1d1d;
+  padding: 12px;
+  border-radius: 10px;
+  margin-top: 15px;
+  text-align: center;
+  font-weight: bold;
+  font-size: 1rem;
+  animation: fadeIn 0.5s ease-in-out;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(-10px); }
+  to { opacity: 1; transform: translateY(0); }
 }
 
 .table {
@@ -97,5 +107,3 @@
   background-color: #dc2626;
   transform: scale(1.05);
 }
-
-
