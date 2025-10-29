@@ -15,8 +15,36 @@ export default function RegisterPage() {
   const [city, setCity] = useState("");
   const [error, setError] = useState("");
 
+  const isPasswordValid = (password: string) => {
+    const regex = /^(?=.*[A-Z])(?=.*\d)(?=.*[!@#$%^&*]).{8,}$/;
+    return regex.test(password);
+  };
+
+  const isEmailValid = (email: string) => {
+    const regex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    return regex.test(email);
+  };
+
   const handleRegister = async (e: React.FormEvent) => {
     e.preventDefault();
+
+    if (!isEmailValid(email)) {
+      setError("Email inválido.");
+      return;
+    }
+
+    if (!isPasswordValid(password)) {
+      setError(
+        "Senha deve ter pelo menos 8 caracteres, uma letra maiúscula, um número e um caractere especial."
+      );
+      return;
+    }
+
+    if (cep && !/^\d{8}$/.test(cep)) {
+      setError("CEP inválido. Deve conter 8 números.");
+      return;
+    }
+
     try {
       const res = await fetch("/api/auth/register", {
         method: "POST",
@@ -52,70 +80,70 @@ export default function RegisterPage() {
 
   return (
     <PageTransition>
-    <div className={styles.container}>
-      <h1 className={styles.title}>Cadastro</h1>
-      <form className={styles.form} onSubmit={handleRegister}>
-        {error && <p className={styles.error}>{error}</p>}
-        <input
-          type="text"
-          placeholder="Nome"
-          value={name}
-          onChange={(e) => setName(e.target.value)}
-          className={styles.input}
-          required
-        />
-        <input
-          type="email"
-          placeholder="Email"
-          value={email}
-          onChange={(e) => setEmail(e.target.value)}
-          className={styles.input}
-          required
-        />
-        <input
-          type="password"
-          placeholder="Senha"
-          value={password}
-          onChange={(e) => setPassword(e.target.value)}
-          className={styles.input}
-          required
-        />
-        <input
-          type="text"
-          placeholder="CEP"
-          value={cep}
-          onChange={(e) => setCep(e.target.value)}
-          onBlur={handleCepBlur}
-          className={styles.input}
-        />
-        <input
-          type="text"
-          placeholder="Estado"
-          value={state}
-          onChange={(e) => setState(e.target.value)}
-          className={styles.input}
-        />
-        <input
-          type="text"
-          placeholder="Cidade"
-          value={city}
-          onChange={(e) => setCity(e.target.value)}
-          className={styles.input}
-        />
-        <button type="submit" className={styles.button}>
-          Cadastrar
-        </button>
-      </form>
-      <p className={styles.login}>
-        Já tem uma conta?{" "}
-        <span
-          className={styles.loginLink}
-          onClick={() => router.push("/login")}
-        >
-          Entre aqui
-        </span>
-      </p>
-    </div>
+      <div className={styles.container}>
+        <h1 className={styles.title}>Cadastro</h1>
+        <form className={styles.form} onSubmit={handleRegister}>
+          {error && <p className={styles.error}>{error}</p>}
+          <input
+            type="text"
+            placeholder="Nome"
+            value={name}
+            onChange={(e) => setName(e.target.value)}
+            className={styles.input}
+            required
+          />
+          <input
+            type="email"
+            placeholder="Email"
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+            className={styles.input}
+            required
+          />
+          <input
+            type="password"
+            placeholder="Senha"
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
+            className={styles.input}
+            required
+          />
+          <input
+            type="text"
+            placeholder="CEP"
+            value={cep}
+            onChange={(e) => setCep(e.target.value)}
+            onBlur={handleCepBlur}
+            className={styles.input}
+          />
+          <input
+            type="text"
+            placeholder="Estado"
+            value={state}
+            onChange={(e) => setState(e.target.value)}
+            className={styles.input}
+          />
+          <input
+            type="text"
+            placeholder="Cidade"
+            value={city}
+            onChange={(e) => setCity(e.target.value)}
+            className={styles.input}
+          />
+          <button type="submit" className={styles.button}>
+            Cadastrar
+          </button>
+        </form>
+        <p className={styles.login}>
+          Já tem uma conta?{" "}
+          <span
+            className={styles.loginLink}
+            onClick={() => router.push("/login")}
+          >
+            Entre aqui
+          </span>
+        </p>
+      </div>
     </PageTransition>
   );
 }

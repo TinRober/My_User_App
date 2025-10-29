@@ -37,10 +37,10 @@ export default function AdminPage() {
     // Checagem de papel
     if (parsedUser.role !== "admin") {
       setMessageType("error");
-      setMessage("🚫 Acesso negado! Você precisa ser um administrador para acessar esta página.");
+      setMessage("Acesso negado! Você precisa ser um administrador para acessar esta página.");
       setTimeout(() => {
-        router.push("/dashboard"); // redireciona após 3 segundos
-      }, 3000);
+        router.push("/dashboard"); 
+      }, 4000);
       setLoading(false);
       return;
     }

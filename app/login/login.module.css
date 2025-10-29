@@ -32,8 +32,17 @@ body, html {
 .input {
   padding: 12px 15px;
   font-size: 1rem;
-  border: 1px solid #ccc;
   border-radius: 8px;
+  border: 1px solid #7d19ff;
+  background-color: #e2e8f0;
+  color: #000000;
+  transition: border 0.2s, box-shadow 0.2s;
+}
+
+.input:focus {
+  border-color: #7d19ff;
+  box-shadow: 0 0 5px #7d19ff;
+  outline: none;
 }
 
 .button {
@@ -60,16 +69,16 @@ body, html {
 }
 
 .register {
-  margin-top: 20px;
-  font-size: 0.95rem;
+  margin-top: 15px;
   color: #e2e8f0;
+  font-size: 0.95rem;
 }
 
 .registerLink {
-  color: #7d19ff;
+  color: #c084fc;
   font-weight: bold;
   cursor: pointer;
-  text-decoration: underline;
+  transition: color 0.2s;
 }
 
 .registerLink:hover {

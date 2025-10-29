@@ -1,51 +1,54 @@
-body, html {
-  margin: 0;
-  padding: 0;
-  background-color: #0f172a;
-  font-family: "Unbounded", sans-serif;
-}
-
 .container {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  min-height: 100vh;
-  padding: 0 20px;
+  max-width: 500px;
+  margin: 200px auto;
+  padding: 40px 30px;
+  font-family: "Unbounded", sans-serif;
+  background-color: #1e1b2f;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+  text-align: center;
 }
 
 .title {
-  font-size: 2.5rem;
+  font-size: 2rem;
   margin-bottom: 20px;
   color: #c084fc;
-  font-family: "Unbounded";
+  font-weight: bold;
 }
 
 .form {
   display: flex;
   flex-direction: column;
-  width: 100%;
-  max-width: 400px;
   gap: 15px;
+  margin-top: 20px;
 }
 
 .input {
   padding: 12px 15px;
   font-size: 1rem;
-  border: 1px solid #ccc;
   border-radius: 8px;
+  border: 1px solid #7d19ff;
+  background-color: #e2e8f0;
+  color: #000000;
+  transition: border 0.2s, box-shadow 0.2s;
+}
+
+.input:focus {
+  border-color: #7d19ff;
+  box-shadow: 0 0 5px #7d19ff;
+  outline: none;
 }
 
 .button {
-  padding: 12px 0;
+  padding: 12px;
   background-color: #7d19ff;
   color: #fff;
-  font-size: 1rem;
   font-weight: bold;
+  font-size: 1rem;
   border: none;
   border-radius: 8px;
   cursor: pointer;
-  transition: background-color 0.2s ease, transform 0.1s ease;
+  transition: background-color 0.2s, transform 0.1s;
 }
 
 .button:hover {
@@ -54,22 +57,25 @@ body, html {
 }
 
 .error {
-  color: #c00000;
-  font-weight: bold;
-  text-align: center;
+  color: #fca5a5;
+  background-color: #7f1d1d;
+  border: 1px solid #b91c1c;
+  padding: 10px;
+  border-radius: 8px;
+  margin-bottom: 10px;
 }
 
 .login {
-  margin-top: 20px;
-  font-size: 0.95rem;
+  margin-top: 15px;
   color: #e2e8f0;
+  font-size: 0.95rem;
 }
 
 .loginLink {
-  color: #7d19ff;
+  color: #c084fc;
   font-weight: bold;
   cursor: pointer;
-  text-decoration: underline;
+  transition: color 0.2s;
 }
 
 .loginLink:hover {
