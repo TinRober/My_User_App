@@ -30,9 +30,9 @@ acessos.
 
 ### 🧭 Dashboard do Usuário
 
--   Visualização de **mensagem de boas-vindas personalizada**.\
--   Exibição dos **dados pessoais** do usuário autenticado.\
--   Exibição dos **últimos acessos**, mostrando data, IP e navegador.\
+-   Visualização de **mensagem de boas-vindas personalizada**.
+-   Exibição dos **dados pessoais** do usuário autenticado.
+-   Exibição dos **últimos acessos**, mostrando data, IP e navegador.
 -   Opção de **logout** segura.
 
 ### 🧑‍💼 Área do Administrador
