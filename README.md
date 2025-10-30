@@ -12,7 +12,7 @@ acessos.
 
 ### 📝 Cadastro de Usuário
 
--   Campos obrigatórios: **nome**, **e-mail**, **senha**\
+-   Campos obrigatórios: **nome**, **e-mail**, **senha**
 -   Campos opcionais: **CEP**, **estado**, **cidade**
 -   Integração automática com a **API ViaCEP** para preencher estado e
     cidade a partir do CEP.
